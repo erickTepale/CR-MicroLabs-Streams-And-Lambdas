@@ -76,4 +76,29 @@ public class TestPersonWarehouse {
 
         Assert.assertEquals(localNames.toString(), warehouseNames.toString());
     }
+
+    @Test
+    public void getNestedAliases() {
+        Stream<Stream<String>> act = warehouse.getNestedAliases();
+        List<String> Actual = new ArrayList<>();
+
+                act.forEach(p->p.forEach(Actual::add));
+        List<String> alias = new ArrayList<>();
+        for (Person person : warehouse) {
+            alias.addAll(Arrays.asList(person.getAliases()));
+        }
+
+        Assert.assertEquals(alias.toString(), Actual.toString() );
+    }
+
+    @Test
+    public void getAllAliases() {
+        List<String> actual = warehouse.getAllAliases().collect(Collectors.toList());
+        List<String> alias = new ArrayList<>();
+        for (Person person : warehouse) {
+            alias.addAll(Arrays.asList(person.getAliases()));
+        }
+
+        Assert.assertEquals(alias.toString(), actual.toString() );
+    }
 }

@@ -87,6 +87,7 @@ public class TestUniquelyNamedPersons {
                 expectedList.add(personName);
             }
         }
+
         return expectedList;
     }
 

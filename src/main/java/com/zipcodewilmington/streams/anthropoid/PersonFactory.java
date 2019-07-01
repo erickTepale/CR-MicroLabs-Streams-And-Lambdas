@@ -3,10 +3,7 @@ package com.zipcodewilmington.streams.anthropoid;
 import com.zipcodewilmington.streams.tools.RandomUtils;
 import com.zipcodewilmington.streams.tools.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -18,6 +15,12 @@ import java.util.stream.Stream;
 public final class PersonFactory {
     public PersonFactory() {
         /** this class is not to be instantiated */
+    }
+
+    public static Character randomChar(){
+        Random r = new Random();
+        String a = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        return a.charAt(r.nextInt(26));
     }
 
     /**
@@ -41,11 +44,7 @@ public final class PersonFactory {
      * @return - ArrayList of Person objects
      */ // TODO
     public List<Person> createPersonList(int listSize) {
-        List<Person> list = new ArrayList<>();
-        for (int i = 0; i < listSize ; i++) {
-            list.add(createRandomPerson());
-        }
-        return list;
+        return Stream.generate( () -> createRandomPerson()).limit(listSize).collect(Collectors.toList());
     }
 
 
@@ -54,11 +53,7 @@ public final class PersonFactory {
      * @return - Array of Person objects
      */ // TODO
     public Person[] createPersonArray(int arrayLength) {
-        Person[]list = new Person[arrayLength];
-        for (int i = 0; i < list.length ; i++) {
-            list[i] = createRandomPerson();
-        }
-        return list;
+        return Stream.generate( () -> createRandomPerson() ).limit(arrayLength).toArray(Person[]::new);
     }
 
 
